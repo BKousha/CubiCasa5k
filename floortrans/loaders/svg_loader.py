@@ -10,8 +10,7 @@ from floortrans.loaders.house import House
 
 class FloorplanSVG(Dataset):
     def __init__(self, data_folder, data_file, is_transform=True,
-                  img_norm=True,
-                 ):
+                  img_norm=True):
         self.img_norm = img_norm
         self.is_transform = is_transform
         
@@ -38,7 +37,9 @@ class FloorplanSVG(Dataset):
         return sample
 
     def get_txt(self, index):
-        fplan = cv2.imread(self.files[index])
+        filename=self.files[index]
+        print(filename)
+        fplan = cv2.imread(filename)
         fplan = cv2.cvtColor(fplan, cv2.COLOR_BGR2RGB)  # correct color channels
         height, width, nchannel = fplan.shape
         fplan = np.moveaxis(fplan, -1, 0)
