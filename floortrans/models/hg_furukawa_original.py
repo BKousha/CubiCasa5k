@@ -52,7 +52,8 @@ class Residual(nn.Module):
 
 
 class hg_furukawa_original(nn.Module):
-    def __init__(self, n_classes):
+    def __init__(self, folder_path,n_classes):
+        self.folder_path=folder_path
         super(hg_furukawa_original, self).__init__()
         self.conv1_ = nn.Conv2d(
             3, 64, bias=True, kernel_size=7, stride=2, padding=3)
@@ -233,7 +234,8 @@ class hg_furukawa_original(nn.Module):
         # Pre-trained network weights from Human pose estimation via Convolutional Part Heatmap Regression
         # https://www.adrianbulat.com/human-pose-estimation MPII
         model = model_1427.model_1427
-        model.load_state_dict(torch.load('floortrans/models/model_1427.pth'))
+        print(self.folder_path+'floortrans/models/model_1427.pth')
+        model.load_state_dict(torch.load(self.folder_path+'floortrans/models/model_1427.pth'))
 
         for (src, dst) in zip(model.parameters(), self.parameters()):
             dst[:].data.copy_(src[:].data)
