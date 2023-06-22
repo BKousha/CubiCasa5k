@@ -33,9 +33,6 @@ class FloorplanSVG(Dataset):
     def __getitem__(self, index):
         sample = self.get_data(index)
 
-        if self.augmentations is not None:
-            sample = self.augmentations(sample)
-            
         if self.is_transform:
             sample = self.transform(sample)
 
