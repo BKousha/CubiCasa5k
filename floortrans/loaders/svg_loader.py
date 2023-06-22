@@ -3,7 +3,7 @@ import pickle
 import torch
 from torch.utils.data import Dataset
 import cv2
-#import numpy as np
+import numpy as np
 #from numpy import genfromtxt
 import pandas as pd
 from floortrans.loaders.house import House
@@ -24,7 +24,7 @@ class FloorplanSVG(Dataset):
         print(df.columns)
         #print(df)
         self.files=df.iloc[:,0].values
-        print(self.files)
+        #print(self.files)
 
     def __len__(self):
         """__len__"""
