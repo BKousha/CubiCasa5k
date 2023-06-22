@@ -11,12 +11,13 @@ from floortrans.loaders.house import House
 
 class FloorplanSVG(Dataset):
     def __init__(self, data_folder, data_file, is_transform=True,
-                  img_norm=True):
+                  img_norm=True,scale_image=0.5):
         self.img_norm = img_norm
         self.is_transform = is_transform
         
         self.get_data = None
         self.get_data = self.get_txt
+        self.scale = scale_image
        
         self.data_folder = data_folder
         # Load txt file to list
@@ -43,6 +44,16 @@ class FloorplanSVG(Dataset):
         print(filename)
         fplan = cv2.imread(filename)
         fplan = cv2.cvtColor(fplan, cv2.COLOR_BGR2RGB)  # correct color channels
+        # Get the original dimensions
+        height, width = fplan.shape[:2]
+
+        # Calculate the new dimensions for scaling to 50%
+        new_width = int(width * self.scale)
+        new_height = int(height * self.scale)
+
+        # Resize the image
+        fplan = cv2.resize(fplan, (new_width, new_height))
+
         height, width, nchannel = fplan.shape
         fplan = np.moveaxis(fplan, -1, 0)
 
