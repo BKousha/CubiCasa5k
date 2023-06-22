@@ -3,8 +3,9 @@ import pickle
 import torch
 from torch.utils.data import Dataset
 import cv2
-import numpy as np
-from numpy import genfromtxt
+#import numpy as np
+#from numpy import genfromtxt
+import pandas as pd
 from floortrans.loaders.house import House
 
 
@@ -19,7 +20,8 @@ class FloorplanSVG(Dataset):
        
         self.data_folder = data_folder
         # Load txt file to list
-        self.files = genfromtxt(data_folder + data_file, dtype='str')
+        df = pd.read_csv(data_folder + data_file)
+        self.files=df['input']
         print(self.files)
 
     def __len__(self):
