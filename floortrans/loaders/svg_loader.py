@@ -21,6 +21,7 @@ class FloorplanSVG(Dataset):
         self.data_folder = data_folder
         # Load txt file to list
         df = pd.read_csv(data_folder + data_file)
+        print(df.columns)
         print(df)
         self.files=df['input'].values
         print(self.files)
